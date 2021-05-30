@@ -1,5 +1,5 @@
 const Intern = require('../lib/Intern');
-const { expectToBe, expectStr, expectNum } = require('../utils/expect');
+const { expectToBe, expectStr, expectNum } = require('../lib/expect');
 
 const intern = new Intern('Ole', 'Olafson', 1, 'UMN');
 
