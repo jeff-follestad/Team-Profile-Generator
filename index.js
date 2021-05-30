@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const generatePage = require('./src/page-template.js')
-const formatName = require('./utils/helper');
+
 const allEmployees = [];
 
 const questions = [
