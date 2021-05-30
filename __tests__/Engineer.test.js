@@ -1,5 +1,5 @@
 const Engineer = require('../lib/Engineer');
-const { expectToBe, expectStr, expectNum } = require('../lib/expect');
+const { expectToBe, expectStr, expectNum } = require('../test-lib/expect');
 
 const engineer = new Engineer('Alec', 'Guiness', 2, 'alec.');
 

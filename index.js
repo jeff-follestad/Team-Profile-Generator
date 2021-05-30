@@ -1,126 +1,69 @@
+const { promptForInput, promptForList } = require('./src/prompts');
 const inquirer = require('inquirer');
 const fs = require('fs');
-const generatePage = require('./src/page-template.js')
 
-const allEmployees = [];
+var allEmployees = [];
 
-const questions = [
-  {
-      type: 'list',
-      name: 'role',
-      message: 'What is the employee\'s role?',
-      choices: // function to allow only one manager to be created
-          () => {
-          if (allEmployees.some(employee => employee.role === 'Manager')) {
-              return ['Engineer', 'Intern']    
-          } else {
-              return ['Manager', 'Engineer', 'Intern']
-          }
-      }
-  },
-  {
-      type: 'input',
-      name: 'firstName',
-      message: ({ role }) => `What is the ${role.toLowerCase()}'s first name?`,
-      validate: nameInput => {
-          if (nameInput) {
-              return true;
-          } else {
-              console.log('Please enter the first name!');
-              return false;
-          }
-      }
-  },
-  {
-      type: 'input',
-      name: 'lastName',
-      message: ({ firstName }) => `What is ${formatName(firstName)}'s last name?`,
-      validate: nameInput => {
-          if (nameInput) {
-              return true;
-          } else {
-              console.log('Please enter the last name!');
-              return false;
-          }
-      }
-  },
-  {
-      type: 'input',
-      name: 'id',
-      message: ({ firstName }) => `What is ${formatName(firstName)}'s ID number?`,
-      validate: idInput => {
-          if (!isNaN(parseInt(idInput))) {
-              return true;
-          } else {
-              console.log('Please enter a valid ID number!');
-              return false;
-          }
-      }
-  },
-  {
-      type: 'input',
-      name: 'officeNumber',
-      message:  ({ firstName }) => `What is ${formatName(firstName)}'s office number?`,
-      when: ({ role }) => {
-          if (role === 'Manager') {
-              return true;
-          } else {
-              return false;
-          }
-      },
-      validate: officeNumberInput => {
-          if (!isNaN(parseInt(officeNumberInput))) {
-              return true;
-          } else {
-              console.log('Please enter a valid number!');
-              return false;
-          }
-      }
-  },
-  {
-      type: 'input',
-      name: 'github',
-      message: ({ firstName }) => `What is ${formatName(firstName)}'s GitHub userame?`,
-      when: ({ role }) => {
-          if (role === 'Engineer') {
-              return true;
-          } else {
-              return false;
-          }
-      },
-      validate: githubInput => {
-          if (githubInput) {
-              return true;
-          } else {
-              console.log('Please enter a username!');
-              return false;
-          }
-      }
-  },
-  {
-      type: 'input',
-      name: 'school',
-      message: ({ firstName }) => `What school does ${formatName(firstName)} go to?`,
-      when: ({ role }) => {
-          if (role === 'Intern') {
-              return true;
-          } else {
-              return false;
-          }
-      },
-      validate: schoolInput => {
-          if (schoolInput) {
-              return true;
-          } else {
-              console.log('Please enter a school name!');
-              return false;
-          }
-      }
-  },
-  {
-      type: 'confirm',
-      name: 'addEmployee',
-      message: 'Would you like to add another employee?',
-      default: true
-  }
-]
+function promptForManager() {
+    return inquirer.prompt([
+        promptForInput('name', 'Enter Manager\'s name'),
+        promptForInput('id', 'Enter Manager\'s ID'),
+        promptForInput('email', 'Enter Manager\'s email'),
+        promptForInput('number', 'Enter Manager\'s office number'),
+    ]);
+}
+
+function promptForEmployee() {
+    return inquirer
+        .prompt([
+            promptForList('type', 'Next employee type (or quit)?', ['intern', 'engineer', 'quit'])
+        ])
+        .then(nextEmployeeInput => {
+            const nextType = nextEmployeeInput.type;
+            if (nextType == 'quit') {
+                return allEmployees;
+            } else if (nextType == 'intern') {
+                return promptForIntern();
+            } else {
+                // The only other option is engineer...
+                return promptForEngineer();
+            }
+        });
+}
+
+function promptForEngineer() {
+    return inquirer
+        .prompt([
+            promptForInput('name', 'Enter Engineer\'s name'),
+            promptForInput('id', 'Enter Engineer\'s ID'),
+            promptForInput('email', 'Enter Engineer\'s email'),
+            promptForInput('github', 'Enter Engineer\'s GitHub user name'),
+        ])
+        .then(engineerData => {
+            allEmployees.push(engineerData);
+            return promptForEmployee();
+        });
+}
+
+function promptForIntern() {
+    return inquirer
+        .prompt([
+            promptForInput('name', 'Enter Intern\'s name'),
+            promptForInput('id', 'Enter Intern\'s ID'),
+            promptForInput('email', 'Enter Intern\'s email'),
+            promptForInput('school', 'Enter Intern\'s school name'),
+        ])
+        .then(internData => {
+            allEmployees.push(internData);
+            return promptForEmployee();
+        });
+}
+
+promptForManager()
+    .then(managerData => {
+        allEmployees.push(managerData);
+        return promptForEmployee();
+    })
+    .then(allEmployees => {
+        console.log(JSON.stringify(allEmployees, null, 4));
+    });
