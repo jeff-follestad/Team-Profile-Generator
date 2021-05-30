@@ -1,9 +1,12 @@
+const inquirer = require('inquirer');
+
 const { promptForInput, promptForList } = require('./src/prompts');
+const { writeFile, copyFile } = require('./src/generate-site');
+const generatePage = require('./src/page-template');
+
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manager');
-const inquirer = require('inquirer');
-const fs = require('fs');
 
 var allEmployees = [];
 
@@ -69,4 +72,15 @@ promptForManager()
     })
     .then(allEmployees => {
         console.log(JSON.stringify(allEmployees, null, 4));
+        return generatePage(allEmployees);
+    })
+    .then(pageHTML => {
+        return writeFile(pageHTML);
+    })
+    .then(writeFileResponse => {
+        // Copies the CSS to dist.
+        return copyFile();
+    })
+    .catch(err => {
+        console.log(err);
     });
