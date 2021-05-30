@@ -1,4 +1,7 @@
 const { promptForInput, promptForList } = require('./src/prompts');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
+const Manager = require('./lib/Manager');
 const inquirer = require('inquirer');
 const fs = require('fs');
 
@@ -39,8 +42,8 @@ function promptForEngineer() {
             promptForInput('email', 'Enter Engineer\'s email'),
             promptForInput('github', 'Enter Engineer\'s GitHub user name'),
         ])
-        .then(engineerData => {
-            allEmployees.push(engineerData);
+        .then(data => {
+            allEmployees.push(new Engineer(data.name, data.id, data.email, data.github));
             return promptForEmployee();
         });
 }
@@ -53,15 +56,15 @@ function promptForIntern() {
             promptForInput('email', 'Enter Intern\'s email'),
             promptForInput('school', 'Enter Intern\'s school name'),
         ])
-        .then(internData => {
-            allEmployees.push(internData);
+        .then(data => {
+            allEmployees.push(new Intern(data.name, data.id, data.email, data.school));
             return promptForEmployee();
         });
 }
 
 promptForManager()
-    .then(managerData => {
-        allEmployees.push(managerData);
+    .then(data => {
+        allEmployees.push(new Manager(data.name, data.id, data.email, data.number));
         return promptForEmployee();
     })
     .then(allEmployees => {
