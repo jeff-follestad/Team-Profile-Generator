@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
 
 const { promptForInput, promptForList } = require('./src/prompts');
-const { writeFile, copyFile } = require('./src/generate-site');
+const { writeFile, copyFile } = require('./src/page-template');
 const generatePage = require('./src/page-template');
 
 const Engineer = require('./lib/Engineer');
@@ -12,10 +12,10 @@ var allEmployees = [];
 
 function promptForManager() {
     return inquirer.prompt([
-        promptForInput('name', 'Enter Manager\'s name'),
-        promptForInput('id', 'Enter Manager\'s ID'),
-        promptForInput('email', 'Enter Manager\'s email'),
-        promptForInput('number', 'Enter Manager\'s office number'),
+        promptForInput('name', 'Enter Manager\'s name:'),
+        promptForInput('id', 'Enter Manager\'s ID:'),
+        promptForInput('email', 'Enter Manager\'s email:'),
+        promptForInput('number', 'Enter Manager\'s office number:'),
     ]);
 }
 
@@ -40,10 +40,10 @@ function promptForEmployee() {
 function promptForEngineer() {
     return inquirer
         .prompt([
-            promptForInput('name', 'Enter Engineer\'s name'),
-            promptForInput('id', 'Enter Engineer\'s ID'),
-            promptForInput('email', 'Enter Engineer\'s email'),
-            promptForInput('github', 'Enter Engineer\'s GitHub user name'),
+            promptForInput('name', 'Enter Engineer\'s name:'),
+            promptForInput('id', 'Enter Engineer\'s ID:'),
+            promptForInput('email', 'Enter Engineer\'s email:'),
+            promptForInput('github', 'Enter Engineer\'s GitHub user name:'),
         ])
         .then(data => {
             allEmployees.push(new Engineer(data.name, data.id, data.email, data.github));
@@ -54,10 +54,10 @@ function promptForEngineer() {
 function promptForIntern() {
     return inquirer
         .prompt([
-            promptForInput('name', 'Enter Intern\'s name'),
-            promptForInput('id', 'Enter Intern\'s ID'),
-            promptForInput('email', 'Enter Intern\'s email'),
-            promptForInput('school', 'Enter Intern\'s school name'),
+            promptForInput('name', 'Enter Intern\'s name:'),
+            promptForInput('id', 'Enter Intern\'s ID:'),
+            promptForInput('email', 'Enter Intern\'s email:'),
+            promptForInput('school', 'Enter Intern\'s school name:'),
         ])
         .then(data => {
             allEmployees.push(new Intern(data.name, data.id, data.email, data.school));
