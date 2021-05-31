@@ -16,7 +16,7 @@ Team Profile Generator (TPG) is a node.js appplication that allows users to quic
 
 * Additional functionality provided by Inquirer.
 
-* TPB leverages Jest for testing.
+* TPG leverages Jest for testing.
 
 * Styling enhanced through the use of Materialize CSS
 
