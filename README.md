@@ -20,4 +20,4 @@ Team Profile Generator (TPG) is a node.js appplication that allows users to quic
 
 * Styling enhanced through the use of Materialize CSS
 
-*[Link to video scree capture] (https://www.awesomescreenshot.com/video/3945032?key=0a4aec086908d4efc44021dad643c298)
+*[Link to video screen capture] (https://www.awesomescreenshot.com/video/3945032?key=0a4aec086908d4efc44021dad643c298)
