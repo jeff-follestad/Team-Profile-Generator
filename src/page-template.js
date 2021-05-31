@@ -57,7 +57,7 @@ const generateProjects = projectsArr => {
 };
 
 // export function to generate entire page
-module.exports = employees => {
+module.exports = templateData => {
   // destructure page data by section
   const { projects, about, ...header } = templateData;
 
