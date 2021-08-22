@@ -1,24 +1,18 @@
-const Manager = require ('../lib/Manager');
-const { expectToBe, expectStr, expectNum } = require('../test-lib/expect');
+// using Manager constructor 
+const Manager = require('../lib/Manager');
 
-const manager = new Manager('Jeffrey', 25, 'jeff@email.com');
-
-test('creates a manager object', () => {
-    expectToBe(manager.name, 'Jeffrey');
-    expectNum(manager.id, 25);
-    expectStr(manager.email, 'jeff@email.com');
+// creating manager object  
+test('creates an Manager object', () => {
+    const manager = new Manager('Jane', 13, 'jane@email.com', 4);
+    
+    expect(manager.officeNumber).toEqual(expect.any(Number));
 });
 
-test('gets manager\'s name', () => {
-    expectStr(manager.getName(), `${manager.name}`);
-});
+// gets role from getRole()
+test('gets role of employee', () => {
+    const manager = new Manager('Nicole', 90, 'jane@email.com.com');
 
-test('gets manager\'s ID', () => {
-    expectNum(manager.getID(), `${manager.id}`);
-});
-
-test('gets manager\'s email', () => {
-    expectStr(manager.getEmail(), manager.email);
+    expect(manager.getRole()).toEqual("Manager");
 });
 
 

@@ -1,78 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>My Team</title>
-    <!-- Favicon link for emoji on tab -->
-    <link rel="shortcut icon" type="image/jpg" href="../assets/images/favicon.png"/>
-    <!-- Google Material Icons link -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    rel="stylesheet">
-    <!-- Google fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,500;0,700;0,900;1,100;1,200;1,600&display=swap" rel="stylesheet">
-    <!-- Bootstrap-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <!-- Custom CSS file -->
-    <link rel="stylesheet" href="../assets/styles/style.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Public+Sans:300i,300,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12 jumbotron mb-3 bg-dark text-white">
-                <h1 class="text-center"><span class="material-icons">groups</span> My Crew</h1>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="team-area col-12 d-flex flex-wrap justify-content-between bg-secondary p-3">
+    <header>
+        <nav class="navbar" id="navbar">
+            <span class="navbar-brand mb-0 h2 w-100 text-center" id="navbar-text">Team Profile</span>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <div class="row justify-content-center" id="team-cards">
                 
-<div class="card employee-card mr-1 mt-3">
-    <div class="card-header">
-        <h2 class="card-title">JeanLuc Picard</h2>
-        <h3 class="card-title bg-primary"><span class="material-icons">business_center</span>Manager</h3>
-    </div>
-    <div class="card-body">
-        <ul class="list-group">
-            <li class="list-group-item"><span class="material-icons">fingerprint</span>ID: 1</li>
-            <li class="list-group-item text-dark"><span class="material-icons">email</span>Email: <a href="mailto:jean-luc@startrek.com">jean-luc@startrek.com</a></li>
-            <li class="list-group-item"><span class="material-icons">business</span>Office Number: 1738</li>
-        </ul>
-    </div>
-</div><div class="card employee-card mr-1 mt-3">
-    <div class="card-header">
-        <h2 class="card-title">Deanna Troi</h2>
-        <h3 class="card-title bg-info"><span class="material-icons">laptop_mac</span>Engineer</h3>
-    </div>
-    <div class="card-body">
-        <ul class="list-group">
-            <li class="list-group-item"><span class="material-icons">fingerprint</span>ID: 3</li>
-            <li class="list-group-item text-dark"><span class="material-icons">email</span>Email: <a href="mailto:deanna@startrek.com">deanna@startrek.com</a></li>
-            <li class="list-group-item text-dark"><span class="material-icons">code</span>GitHub: <a href="https://github.com/deanna-troi" target="_blank">deanna-troi</a></li>
-        </ul>
-    </div>
-</div><div class="card employee-card mr-1 mt-3">
-    <div class="card-header">
-        <h2 class="card-title">Wesley Crusher</h2>
-        <h3 class="card-title bg-success"><span class="material-icons">backpack</span>Intern</h3>
-    </div>
-    <div class="card-body">
-        <ul class="list-group">
-            <li class="list-group-item"><span class="material-icons">fingerprint</span>ID: 2</li>
-            <li class="list-group-item text-dark"><span class="material-icons">email</span>Email: <a href="mailto:wesley@startrek.com">wesley@startrek.com</a></li>
-            <li class="list-group-item"><span class="material-icons">school</span>School: Starship Academy</li>
-        </ul>
-    </div>
+  <div class="col-4 mt-4">
+      <div class="card h-100">
+          <div class="card-header">
+              <h3>Jane</h3>
+              <h4>Manager</h4><i class="material-icons">content_paste</i>
+          </div>
+
+          <div class="card-body">
+              <p class="id">ID: 5675</p>
+              <p class="email">Email: <a href="mailto:jane@email.com">jane@email.com</a></p>
+              <p class="office">Office Number: 13</p>
+          </div>
+
+      </div>
+  </div>
+  
+  <div class="col-4 mt-4">
+      <div class="card h-100">
+          <div class="card-header">
+              <h3>Aidan</h3>
+              <h4>Engineer</h4><i class="material-icons">laptop_mac</i>
+          </div>
+
+          <div class="card-body">
+              <p class="id">ID: 4324</p>
+              <p class="email">Email: <a href="mailto:aidan@email.com">aidan@email.com</a></p>
+              <p class="github">Github: <a href="https://github.com/jeff-follestad">jeff-follestad</a></p>
+          </div>
+
+      </div>
+  </div>
+  
+  <div class="col-4 mt-4">
+      <div class="card h-100">
+          <div class="card-header">
+              <h3>Nina</h3>
+              <h4>Intern</h4><i class="material-icons">assignment_ind</i>
+          </div>
+
+          <div class="card-body">
+              <p class="id">ID: 3799</p>
+              <p class="email">Email:<a href="mailto:nina@email.com">nina@email.com</a></p>
+              <p class="school">School: St. Johns</p>
+          </div>
+  </div>
 </div>
+  
+  <div class="col-4 mt-4">
+      <div class="card h-100">
+          <div class="card-header">
+              <h3>Abby</h3>
+              <h4>Engineer</h4><i class="material-icons">laptop_mac</i>
+          </div>
+
+          <div class="card-body">
+              <p class="id">ID: 5099</p>
+              <p class="email">Email: <a href="mailto:abby@email.com">abby@gmail.com</a></p>
+              <p class="github">Github: <a href="https://github.com/abby">abby</a></p>
+          </div>
+
+      </div>
+  </div>
+  
+  <div class="col-4 mt-4">
+      <div class="card h-100">
+          <div class="card-header">
+              <h3>Aric</h3>
+              <h4>Intern</h4><i class="material-icons">assignment_ind</i>
+          </div>
+
+          <div class="card-body">
+              <p class="id">ID: 3223</p>
+              <p class="email">Email:<a href="mailto:aric@email.com">aric@email.com</a></p>
+              <p class="school">School: UofMN</p>
+          </div>
+  </div>
+</div>
+  
             </div>
         </div>
-    </div>
+    </main>
+    
 </body>
-
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 </html>

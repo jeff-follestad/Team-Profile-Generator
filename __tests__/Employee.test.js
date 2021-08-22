@@ -1,24 +1,38 @@
-const { ensureExpectedIsNumber } = require('jest-matcher-utils');
-const Employee = require ('../lib/Employee');
-const { expectToBe, expectStr, expectNum } = require('../test-lib/expect');
+const Employee = require('../lib/Employee');
 
-const employee = new Employee('Jeff', 13, 'jeff@email.com');
+// creates employee object 
+test('creates an employee object', () => {
+    const employee = new Employee('Jeff', 13, 'Jeff@email.com');
 
-test('creates a employee object', () => {
-    expectToBe(employee.name,'Jeff');
-    expectNum(employee.id);
-    expectStr(employee.email, 'jeff@email.com');
-
+    expect(employee.name).toEqual(expect.any(String));
+    expect(employee.id).toEqual(expect.any(Number));
+    expect(employee.email).toEqual(expect.any(String));
 });
 
-test('gets employee\'s name', () => {
-    expectStr(employee.getName(), `${employee.name}`);
+// gets id from getId() 
+test('gets employee name', () => {
+    const employee = new Employee('Jeff', 13, 'Jeff@email.com');
+
+    expect(employee.getName()).toEqual(expect.any(String));
 });
 
-test('gets employee\'s ID', () => {
-    ensureExpectedIsNumber(employee.getID(), `${employee.id}`);
+// gets id from getId() 
+test('gets employee ID', () => {
+    const employee = new Employee('Jeff', 13, 'Jeff@email.com');
+
+    expect(employee.getId()).toEqual(expect.any(Number));
 });
 
-test('gets employee\'s email', () => {
-    expectStr(employee.getEmail(), employee.email);
+// gets emails from getEmail()
+test('gets employee email', () => {
+    const employee = new Employee('Jeff', 13, 'Jeff@email.com');
+
+    expect(employee.getEmail()).toEqual(expect.stringContaining(employee.email.toString()));
 });
+
+// gets role from getRole()
+test('gets role of employee', () => {
+    const employee = new Employee('Jeff', 13, 'Jeff@email.com');
+
+    expect(employee.getRole()).toEqual("Employee");
+}); 

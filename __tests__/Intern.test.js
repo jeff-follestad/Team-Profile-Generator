@@ -1,28 +1,23 @@
-const { getMaxListeners } = require('process');
+// using Intern constructor 
 const Intern = require('../lib/Intern');
-const { expectToBe, expectStr, expectNum } = require('../test-lib/expect');
 
-const intern = new Intern('Ole', 1, 'ole@email.com', 'UMN');
-
-test('creates an intern object', () => {
-    expectStr(intern.name, 'Ole');
-    expectNum(intern.id, 1);
-    expectStr(intern.email, 'ole@email.com');
-    expectStr(intern.school, 'UMN');
+// creating intern object  
+test('creates an Intern object', () => {
+    const intern = new Intern('Nina', 69, 'nina@email.com', 'St. Johns');
+    
+    expect(intern.school) .toEqual(expect.any(String));
 });
 
-test('gets intern\'s name', () => {
-    expectStr(intern.getName(), `${intern.name}`);
+// gets school from getSchool()
+test('gets employee school', () => {
+    const intern = new Intern('Nina', 90, 'nina@email.com', 'St. Johns');
+    
+    expect(intern.getSchool()).toEqual(expect.stringContaining(intern.school.toString()));
 });
 
-test('gets intern\'s ID', () => {
-    expectNum(intern.getID(), `${intern.id}`);
-});
+// gets role from getRole()
+test('gets role of employee', () => {
+    const intern = new Intern('Nina', 90, 'nina@email.com.com', 'St. Johns');
 
-test('gets intern\'s email', () => {
-    expectStr(intern.getEmail(), intern.email);
-});
-
-test('gets intern\'s school', () => {
-    expectStr(intern.getSchool(), intern.school);
+    expect(intern.getRole()).toEqual("Intern");
 });
