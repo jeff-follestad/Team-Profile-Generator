@@ -136,3 +136,6 @@ const generateTeamPage = function (employeeCards) {
 `;
 }
 
+// export to index
+module.exports = generateHTML; 
+
