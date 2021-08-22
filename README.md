@@ -26,4 +26,4 @@ Team Profile Generator (TPG) is a node.js appplication that allows users to quic
 
 * [Link to video screen capture](https://www.awesomescreenshot.com/video/4935648?key=e44b55853cb44f787e8dc720951108d9)
 
-* [Example of generated HTML](assets/Team Profile.png)
+* [Example of generated HTML](/Users/jeff/Projects/team-profile-generator/assets/Team Profile.png)
