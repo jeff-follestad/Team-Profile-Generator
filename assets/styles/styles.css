@@ -1,0 +1,15 @@
+body {
+  font-family: 'Courier New', sans-serif;
+}
+
+li:hover {
+  background-color: lightgrey;
+}
+
+a {
+  color: black;
+}
+a:hover {
+  background-color: rgba(240, 253, 255, 0.845);        
+  border-radius: 10%;
+}

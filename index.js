@@ -1,86 +1,193 @@
-const inquirer = require('inquirer');
+// Required packages
+const inquirer = require("inquirer");
+const fs = require("fs");
+const path = require("path");
+const fileDirectory = path.resolve(__dirname, "dist");
+const filePath = path.join(fileDirectory, "index.html");
 
-const { promptForInput, promptForList } = require('./src/prompts');
-const { writeFile, copyFile } = require('./src/page-template');
-const generatePage = require('./src/page-template');
+// Required module exports
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
+const Manager = require("./lib/Manager");
+const renderHTML = require("./lib/generateHTML");
 
-const Engineer = require('./lib/Engineer');
-const Intern = require('./lib/Intern');
-const Manager = require('./lib/Manager');
+// Employee array
+let employeesArr = [];
 
-var allEmployees = [];
+// Questions array for all employees
+const questions = [           
+    {
+        type: "input",
+        name: "name",
+        message: "What is the name of this employee?"
+    },
+    {
+        type: "input",
+        name: "id",
+        message: "What is the ID of this employee?"
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "What is this employee's email?"
+    },
+    {
+        type: "list",
+        name: "role",
+        message: "What role does this employee have?",
+        choices: ["Engineer", "Intern", "Manager"]
+    }
+    ]
 
-function promptForManager() {
-    return inquirer.prompt([
-        promptForInput('name', 'Enter Manager\'s name:'),
-        promptForInput('id', 'Enter Manager\'s ID:'),
-        promptForInput('email', 'Enter Manager\'s email:'),
-        promptForInput('number', 'Enter Manager\'s office number:'),
-    ]);
-}
+    // Questions for manager role
+    managerQuestions = [
+        {
+            type: "input",
+            name: "officeNumber",
+            message: "What is the manager's office number? (Required)",
+            validate: officeNumber => {
+                if (officeNumber) {
+                  return true;
+                } else {
+                  console.log("Please enter an office number!");
+                  return false;
+                }
+              }
+        }
+    ]
 
-function promptForEmployee() {
-    return inquirer
-        .prompt([
-            promptForList('type', 'Next employee type (or quit)?', ['intern', 'engineer', 'quit'])
-        ])
-        .then(nextEmployeeInput => {
-            const nextType = nextEmployeeInput.type;
-            if (nextType == 'quit') {
-                return allEmployees;
-            } else if (nextType == 'intern') {
-                return promptForIntern();
-            } else {
-                // The only other option is engineer...
-                return promptForEngineer();
+    // Questions for engineer role
+    engineerQuestions = [
+        {
+            type: "input",
+            name: "github",
+            message: "What is the engineer's Github Username? (Required)",
+            validate: github => {
+                if (github) {
+                  return true;
+                } else {
+                  console.log("Please enter a GitHub username!");
+                  return false;
+                }
+              }
+        }
+    ]
+
+    // Questions for intern role
+    internQuestions = [
+
+        {
+            type: "input",
+            name: "school",
+            message: "What school is the intern from? (Required)",
+            validate: school => {
+                if (school) {
+                  return true;
+                } else {
+                  console.log("Please enter a school name!");
+                  return false;
+                }
+              }
+        }
+    ]
+
+    // Function to initialize the application
+    const init = () => {
+        if (fs.existsSync(filePath)) {
+            inquirer.prompt({
+                type: "confirm",
+                message: "It looks like the index.html file in the 'dist' folder already exists. Do you want to overwrite it?",
+                name: "overwrite"
+            }).then(async (response) => {
+    
+                let overwrite = response.overwrite;
+                if (await overwrite === true) {
+                    console.log("Please enter your team information:")
+                    newEmployee()
+                } else if (await overwrite === false) {
+                    console.log("Your index.html file in the 'dist' folder will not be overwritten. Please move the current index.html file to another folder before restarting.")
+                }
+            })
+        } else {
+            console.log("Welcome to the team profile generator. Please enter your team information below:")
+            newEmployee()
+        }
+    };   
+
+    // Function to create new employees
+    const newEmployee = async () => {
+        await inquirer.prompt(questions)
+          .then((response) => {
+            let name = response.name;
+            let id = response.id;
+            let email = response.email;
+            let role = response.role;
+            let officeNumber;
+            let github;
+            let school;
+
+            if (role === "Engineer") {
+            inquirer.prompt(engineerQuestions).then((response) =>{
+                github = response.github;
+                let employee = new Engineer(name, id, email, github);
+                employeesArr.push(employee);
+                addEmployee(employeesArr);
+                });
             }
-        });
-}
+            else if (role === "Manager") {
+                inquirer.prompt(managerQuestions).then((response) =>{
+                        officeNumber = response.officeNumber;
+                        let employee = new Manager(name, id, email, officeNumber);
+                        employeesArr.push(employee);
+                        addEmployee(employeesArr);
+                    });
+                }
+            else if (role === "Intern") {
+                inquirer.prompt(internQuestions).then((response) =>{
+                        school = response.school;
+                        let employee = new Intern(name, id, email, school);
+                        employeesArr.push(employee);
+                        addEmployee(employeesArr);
+                    });
+            }
 
-function promptForEngineer() {
-    return inquirer
-        .prompt([
-            promptForInput('name', 'Enter Engineer\'s name:'),
-            promptForInput('id', 'Enter Engineer\'s ID:'),
-            promptForInput('email', 'Enter Engineer\'s email:'),
-            promptForInput('github', 'Enter Engineer\'s GitHub user name:'),
-        ])
-        .then(data => {
-            allEmployees.push(new Engineer(data.name, data.id, data.email, data.github));
-            return promptForEmployee();
-        });
-}
+        });    
+    
+    };
 
-function promptForIntern() {
-    return inquirer
-        .prompt([
-            promptForInput('name', 'Enter Intern\'s name:'),
-            promptForInput('id', 'Enter Intern\'s ID:'),
-            promptForInput('email', 'Enter Intern\'s email:'),
-            promptForInput('school', 'Enter Intern\'s school name:'),
-        ])
-        .then(data => {
-            allEmployees.push(new Intern(data.name, data.id, data.email, data.school));
-            return promptForEmployee();
-        });
-}
+    // Function that asks if you would like to add an employee. This will keep coming up until you are finished. When you're finished and say no, it will generate the index.html file
+    const addEmployee = async (array) => {
+       await inquirer
+        .prompt({
+            type: "confirm",
+            name: "addEmployee",
+            message: "Would you like to add an employee? (Required)"
 
-promptForManager()
-    .then(data => {
-        allEmployees.push(new Manager(data.name, data.id, data.email, data.number));
-        return promptForEmployee();
+        }).then(async (response) => {
+            var createEmployee = response.addEmployee;
+            if (await createEmployee === true) {
+                newEmployee();
+            } 
+            else if (await createEmployee === false) {
+            // If the dist directory does not exist, then it creates the dist directory before creating the index.html file
+            if (!fs.existsSync(fileDirectory)) {
+                fs.mkdirSync(fileDirectory)
+            }
+
+            // calls the renderHTML function in the generateHTML.js file to create the index.html
+            
+            fs.writeFile(filePath, renderHTML(array), (err) => {
+        
+                if (err) {
+                    return console.log(err);
+                }
+                
+                // Success message
+                console.log("Your index.html file has been created in the 'dist' folder!");
+            });
+
+        }
     })
-    .then(allEmployees => {
-        console.log(JSON.stringify(allEmployees, null, 4));
-        return generatePage(allEmployees);
-    })
-    .then(pageHTML => {
-        return writeFile(pageHTML);
-    })
-    .then(writeFileResponse => {
-        // Copies the CSS to dist.
-        return copyFile();
-    })
-    .catch(err => {
-        console.log(err);
-    });
+};
+    // Function call to initialize app
+    init();
